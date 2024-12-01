@@ -1,3 +1,5 @@
+use std::io::{self, BufRead, Write};
+
 enum State{
     Locked, 
     Unlocked
@@ -21,5 +23,18 @@ fn next_state(state: State, event: Event) -> State{
 }
 
 fn main() {
-    println!("Congratulations! Your Rust program works.");
+    let mut state = State::Unlocked;
+    print!("> ");
+    io::stdout().flush();
+    for line in io::stdin().lock().lines(){
+        match line.unwrap().as_str() {
+            "coin" => todo!(),
+            "push" => todo!(),
+            unkown => {
+                eprintln!("ERROR: unknown event {}", unkown);
+            }
+        }
+        print!("> ");
+        io::stdout().flush();
+    }
 }
