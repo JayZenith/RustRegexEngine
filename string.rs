@@ -42,10 +42,11 @@ impl Fsm{
 
     fn dump(&self){
         for symbol in 0..FSM_COLUMN_SIZE{
-            print!("{} => ", symbol);
+            print!("{:03} => ", symbol);
             for column in self.cs.iter(){
-                println!("{}",column.ts[symbol]);
+                print!("{} ",column.ts[symbol]);
             }
+            println!("");
         }
     }
 }
@@ -53,10 +54,16 @@ impl Fsm{
 fn main(){
     let mut fsm = Fsm::new();
 
-    //FsmColumn 0
+
+    
+    //Failed State
+    fsm.push(FsmColumn::new());
+
+    //FsmColumn 1
     {
         let mut col = FsmColumn::new(); //get struct with 0 init array
-        col.fill_range('a'..'b', 1); //ascii char index with state 1 assigned 
+        //col.fill_range('a'..'b', 1); //ascii char index with state 1 assigned 
+        col.ts['a' as usize] = fsm.cs.len() + 1;
         fsm.push(col);
     }
 
