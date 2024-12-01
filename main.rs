@@ -1,10 +1,13 @@
 use std::io::{self, BufRead, Write};
 
+
+#[derive(Debug)]
 enum State{
     Locked, 
     Unlocked
 }
 
+#[derive(Debug)]
 enum Event{
     Push, 
     Coin
@@ -23,18 +26,20 @@ fn next_state(state: State, event: Event) -> State{
 }
 
 fn main() {
-    let mut state = State::Unlocked;
+    let mut state = State::Locked;
+    println!("State: {:?}", state);
     print!("> ");
-    io::stdout().flush();
+    io::stdout().flush().unwrap();
     for line in io::stdin().lock().lines(){
         match line.unwrap().as_str() {
-            "coin" => todo!(),
-            "push" => todo!(),
-            unkown => {
-                eprintln!("ERROR: unknown event {}", unkown);
+            "coin" => state = next_state(state, Event::Coin),
+            "push" => state = next_state(state, Event::Push),
+            unknown => {
+                eprintln!("ERROR: unknown event {}", unknown);
             }
         }
+        println!("State: {:?}", state);
         print!("> ");
-        io::stdout().flush();
+        io::stdout().flush().unwrap();
     }
 }
