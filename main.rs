@@ -2,7 +2,7 @@ use std::io::{self, BufRead, Write};
 
 
 // #[derive(Debug)] 
-// enum State{
+// enum State{ 
 //     Locked, 
 //     Unlocked
 // }
@@ -12,6 +12,14 @@ use std::io::{self, BufRead, Write};
 //     Push, 
 //     Coin
 // }
+
+enum State{
+    Locked, 
+    Unlocked,
+}
+
+ 
+type FSM = HashMap<State, HashMap<Event, State>>
 
 const LOCKED: usize = 0;
 const UNLOCKED: usize = 1;
