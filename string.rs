@@ -52,6 +52,28 @@ impl Fsm{
     }
 }
 
+fn match_fsm(fsm: Fsm, input: &str) -> bool {
+    let mut state = 1;
+    for c in input.chars(){
+        if state == 0 || state >= fsm.cs.len(){ //reached terminal state
+            break;
+        }
+
+        //we have a state, an event, and 2d table
+        //where we lookup the next state
+        state = fsm.cs[state].ts[c as usize];
+    }
+
+    if state == 0{
+        return false;
+    }
+    if state < fsm.cs.len(){
+        state = fsm.cs[state].ts[FSM_NEWLINE];
+    }
+
+    return state >= fsm.cs.len();
+}
+
 fn main(){
     let mut fsm = Fsm::new();
 
