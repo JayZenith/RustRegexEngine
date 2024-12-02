@@ -52,7 +52,7 @@ impl Fsm{
     }
 }
 
-fn match_fsm(fsm: Fsm, input: &str) -> bool {
+fn match_fsm(fsm: &Fsm, input: &str) -> bool {
     let mut state = 1;
     for c in input.chars(){
         if state == 0 || state >= fsm.cs.len(){ //reached terminal state
@@ -122,4 +122,9 @@ fn main(){
 
     
     fsm.dump();
+
+    let inputs = vec!["Hello, World","abc", "abcd"];
+    for input in inputs.iter(){
+        println!("{:?} => {:?}", input, match_fsm(&fsm, input));
+    }
 }
